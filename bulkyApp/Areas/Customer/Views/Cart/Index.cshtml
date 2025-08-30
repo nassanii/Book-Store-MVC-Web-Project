@@ -1,0 +1,175 @@
+﻿@model ShoppingCartVM
+
+<form method="post" class="container py-5">
+    <div class="row g-4">
+        <!-- Cart Items -->
+        <div class="col-lg-8">
+            <div class="card border-0 shadow rounded-4 p-4 animate__animated animate__fadeInUp">
+                <h3 class="fw-bold mb-4 text-dark">Your Cart</h3>
+
+                @foreach (var item in Model.ShoppingCardList)
+                {
+                    string imgUrl = item.Product.ImgURL ?? "";
+                    imgUrl = imgUrl.Replace("\\", "/");
+                    if (!string.IsNullOrEmpty(imgUrl) && !imgUrl.StartsWith("http") && !imgUrl.StartsWith("/"))
+                    {
+                        imgUrl = "/" + imgUrl;
+                    }
+
+                    <div class="cart-item d-flex flex-column flex-md-row align-items-center justify-content-between border-bottom py-4 gap-3">
+                        <!-- Image -->
+                        <div class="flex-shrink-0">
+                            <img src="@(string.IsNullOrEmpty(imgUrl) ? "/images/no-image.png" : imgUrl)"
+                                 class="rounded-3 shadow-sm product-img"
+                                 style="width: 100px; height: 100px; object-fit: cover;" />
+                        </div>
+
+                        <!-- Details -->
+                        <div class="flex-grow-1 px-md-3 text-center text-md-start">
+                            <h6 class="fw-semibold mb-1">@item.Product.Title</h6>
+                            <p class="small text-muted mb-2">@Html.Raw(@item.Product.Description)</p>
+                            <span class="fw-bold fs-6 text-dark">@item.Price.ToString("c")</span>
+                        </div>
+
+                        <!-- Quantity Controls -->
+                        <div class="d-flex align-items-center gap-2">
+                            <a asp-action="Minus" asp-route-cartId="@item.Id"
+                               class="btn btn-light border rounded-circle px-2 py-1">
+                                <i class="bi bi-dash-lg"></i>
+                            </a>
+                            <span class="fw-semibold fs-6">@item.Count</span>
+                            <a asp-action="Plus" asp-route-cartId="@item.Id"
+                               class="btn btn-light border rounded-circle px-2 py-1">
+                                <i class="bi bi-plus-lg"></i>
+                            </a>
+                        </div>
+
+                        <!-- Remove -->
+                        <a asp-action="Remove" asp-route-cartId="@item.Id"
+                           class="btn btn-outline-danger border-0 rounded-circle d-flex align-items-center justify-content-center remove-btn"
+                           style="width: 36px; height: 36px;">
+                            <i class="bi bi-x-lg"></i>
+                        </a>
+                    </div>
+                }
+
+                <!-- Continue Shopping -->
+                <a asp-area="Customer" asp-controller="Home" asp-action="Index"
+                   class="btn-continue mt-3 fw-semibold">
+                    <i class="bi bi-arrow-left"></i> Continue Shopping
+                </a>
+            </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow rounded-4 p-4 sticky-top animate__animated animate__fadeInRight" style="top: 20px;">
+                <h4 class="fw-bold mb-4 text-dark">Order Summary</h4>
+
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted">Subtotal</span>
+                    <span>@Model.orderHeader.OrderTotal.ToString("c")</span>
+                </div>
+
+                <div class="d-flex justify-content-between border-top pt-3">
+                    <span class="fw-bold fs-5">Total</span>
+                    <span class="fw-bold fs-5">@Model.orderHeader.OrderTotal.ToString("c")</span>
+                </div>
+
+                <a asp-action="Summary" class="btn btn-dark w-100 mt-4 py-3 fw-semibold rounded-pill checkout-btn">
+                    Proceed to Checkout <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</form>
+
+<style>
+    /* Animate cart items */
+    .cart-item {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.5s forwards;
+    }
+
+        .cart-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .cart-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .cart-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .cart-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+    @@keyframes fadeInUp {
+        to
+
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    /* Hover zoom for product images */
+    .product-img {
+        transition: transform 0.3s ease;
+    }
+
+        .product-img:hover {
+            transform: scale(1.08);
+        }
+
+    /* Remove button hover */
+    .remove-btn:hover {
+        background: #dc3545;
+        color: #fff;
+        transform: rotate(90deg);
+        transition: 0.3s;
+    }
+
+    /* Continue shopping button */
+    .btn-continue {
+        display: inline-block;
+        color: #0d6efd;
+        text-decoration: none;
+        position: relative;
+        transition: color 0.3s ease;
+    }
+
+        .btn-continue::after {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            left: 0;
+            bottom: -4px;
+            background: #0d6efd;
+            transition: width 0.3s ease;
+        }
+
+        .btn-continue:hover {
+            color: #084298;
+        }
+
+            .btn-continue:hover::after {
+                width: 100%;
+            }
+
+    /* Checkout button hover pulse */
+    .checkout-btn {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .checkout-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+</style>

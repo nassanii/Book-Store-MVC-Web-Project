@@ -1,0 +1,153 @@
+﻿@model ShoppingCartVM
+
+<form method="post" class="container py-4">
+    <div class="card shadow-lg rounded-3 border-0 p-3 animate__animated animate__fadeInUp" style="background: #fff; color: #212529;">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0 text-dark">Shipping & Checkout</h5>
+        </div>
+
+        <div class="row g-3">
+            <!-- Shipping Details -->
+            <div class="col-lg-6">
+                <div class="card border-0 shadow p-3 rounded-3 h-100">
+                    <h6 class="text-primary fw-bold mb-2">Shipping Details</h6>
+
+                    <div class="mb-2">
+                        <input asp-for="orderHeader.Name" class="form-control form-control-sm input-anim" placeholder="Name" />
+                        <span asp-validation-for="orderHeader.Name" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-2">
+                        <input asp-for="orderHeader.phoneNumber" class="form-control form-control-sm input-anim" placeholder="Phone" />
+                        <span asp-validation-for="orderHeader.phoneNumber" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-2">
+                        <input asp-for="orderHeader.StreetAdress" class="form-control form-control-sm input-anim" placeholder="Street Address" />
+                        <span asp-validation-for="orderHeader.StreetAdress" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-2">
+                        <input asp-for="orderHeader.City" class="form-control form-control-sm input-anim" placeholder="City" />
+                        <span asp-validation-for="orderHeader.City" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-2">
+                        <input asp-for="orderHeader.State" class="form-control form-control-sm input-anim" placeholder="State" />
+                        <span asp-validation-for="orderHeader.State" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-2">
+                        <input asp-for="orderHeader.PostaCode" class="form-control form-control-sm input-anim" placeholder="Postal Code" />
+                        <span asp-validation-for="orderHeader.PostaCode" class="text-danger small"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="col-lg-6">
+                <div class="card border-0 shadow p-3 rounded-3 h-100">
+                    <h6 class="text-primary fw-bold mb-2">Order Summary</h6>
+                    <ul class="list-group mb-2" style="background: transparent;">
+                        @foreach (var details in Model.ShoppingCardList)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center py-1 px-2" style="background: #f8f9fa;">
+                                <div>
+                                    <small>@details.Product.Title</small><br />
+                                    <small class="text-muted">Qty: @details.Count</small>
+                                </div>
+                                <span class="text-muted small">@((details.Price * details.Count).ToString("c"))</span>
+                            </li>
+                        }
+                        <li class="list-group-item d-flex justify-content-between bg-light fw-bold small">
+                            <span>Total</span>
+                            <span>@Model.orderHeader.OrderTotal.ToString("c")</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer: Estimated Arrival + Back + Place Order -->
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <!-- Estimated Arrival -->
+            <div class="text-muted small">
+                Estimate Arrival Date:
+                @{
+                    var estimatedDate = DateTime.Now.AddDays(7);
+                }
+                <strong>@estimatedDate.ToString("MMMM dd, yyyy")</strong>
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-flex gap-2">
+                <a asp-action="Index" class="btn btn-outline-secondary btn-sm px-3 rounded-pill hover-anim">Back</a>
+                <button type="submit" class="btn btn-gradient btn-sm px-4 rounded-pill checkout-btn hover-anim">
+                    Place Order
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<style>
+    /* Input focus animation */
+    .input-anim:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 8px rgba(13,110,253,0.25);
+        transition: 0.3s;
+    }
+
+    /* Buttons hover animation */
+    .hover-anim {
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+        .hover-anim:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 12px rgba(13,202,240,0.3);
+        }
+
+    /* Checkout gradient button */
+    .btn-gradient {
+        background: black;
+        color: #fff;
+        font-weight: 600;
+        border: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(13,202,240,0.3);
+    }
+
+        .btn-gradient:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(13,202,240,0.5);
+        }
+
+        .btn-gradient:active {
+            transform: scale(0.97);
+            box-shadow: 0 4px 12px rgba(13,202,240,0.4);
+        }
+
+    /* Animation for card */
+    .animate__fadeInUp {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.5s forwards;
+    }
+    @@keyframes fadeInUp {
+        to
+
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+
+    /* Shadow effect for inner cards */
+    .card.shadow {
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .card.shadow:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.25);
+        }
+</style>

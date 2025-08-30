@@ -1,0 +1,158 @@
+﻿@model IEnumerable<Bulky.Models.Product>
+
+@{
+    ViewData["Title"] = "Home - Products";
+}
+
+<style>
+    body {
+        background: #fff; /* white background */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #121212; /* dark text for contrast on white */
+    }
+
+    .product-card {
+        border: none;
+        border-radius: 20px;
+        overflow: hidden;
+        background: black; /* لون مطابق للـ navbar الأسود الداكن */
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        will-change: transform;
+        position: relative;
+    }
+
+        .product-card:hover {
+            transform: translateY(-10px) rotate(-1deg) scale(1.05);
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.15);
+            z-index: 5;
+        }
+
+    .product-img {
+        height: 260px;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        filter: brightness(0.85);
+    }
+
+    .product-card:hover .product-img {
+        transform: scale(1.1);
+        filter: brightness(1);
+    }
+
+    .card-body {
+        padding: 1.25rem 1.5rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        height: 160px;
+        justify-content: space-between;
+    }
+
+    .card-title {
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: #fff; /* white text on dark card */
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .price {
+        color: #bbb;
+        font-weight: 700;
+        font-size: 1.4rem;
+        letter-spacing: 0.05em;
+    }
+
+    .btn-details {
+        background: #fff;
+        color: black;
+        border: none;
+        border-radius: 30px;
+        padding: 0.5rem 1rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        box-shadow: 0 6px 12px rgba(255, 255, 255, 0.3);
+        position: relative;
+        overflow: hidden;
+        transition: background-color 0.4s ease, box-shadow 0.4s ease, color 0.4s ease;
+    }
+
+        .btn-details::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(120deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0) 60%);
+            transform: rotate(25deg);
+            transition: transform 0.7s ease;
+            pointer-events: none;
+        }
+
+        .btn-details:hover {
+            background-color: black;
+            color: #eee;
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.6);
+        }
+
+            .btn-details:hover::before {
+                transform: rotate(25deg) translateX(150%);
+            }
+
+    /* Responsive tweaks */
+    @@media (max-width: 576px) {
+        .product-card
+
+    {
+        margin-bottom: 2rem;
+    }
+
+    }
+</style>
+
+
+<div class="row g-4 justify-content-center py-3">
+    @if (Model != null && Model.Any())
+    {
+        foreach (var product in Model)
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card product-card h-100" tabindex="0">
+                    @if (!string.IsNullOrEmpty(product.ImgURL))
+                    {
+                        <img src="@product.ImgURL" class="card-img-top product-img" alt="@product.Title" />
+                    }
+                    else
+                    {
+                        <img src="/images/no-image.png" class="card-img-top product-img" alt="No Image" />
+                    }
+
+                    <div class="card-body">
+                        <h5 class="card-title" title="@product.Title">@product.Title</h5>
+                        <p class="price">@product.Price.ToString("C")</p>
+
+                        <a asp-area="Customer"
+                           asp-controller="Home"
+                           asp-action="Details"
+                           asp-route-id="@product.Id"
+                           class="btn btn-details mt-auto">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="col-12 text-center">    
+            <p style="color: #666;">No products found.</p>
+        </div>
+    }
+</div>

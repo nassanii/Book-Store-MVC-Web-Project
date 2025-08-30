@@ -1,0 +1,144 @@
+﻿@model ProductVM
+
+<div class="container-fluid mt-5 px-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h3 class="mb-4 text-center fw-bold">
+                <i class="bi bi-plus-circle me-2 text-primary"></i>
+                @(Model.Product.Id != 0 ? "Update" : "Create") Product
+            </h3>
+
+            <form asp-action="Upsert" method="post" class="shadow p-4 rounded bg-white border" enctype="multipart/form-data">
+                <input asp-for="Product.Id" type="hidden" />
+                <input asp-for="Product.ImgURL" type="hidden" />
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Product.Title" class="form-label"></label>
+                    <input asp-for="Product.Title" class="form-control" placeholder="Enter product title" />
+                    <span asp-validation-for="Product.Title" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Product.Description" class="form-label"></label>
+                    <textarea asp-for="Product.Description" class="form-control" rows="3" placeholder="Enter product description"></textarea>
+                    <span asp-validation-for="Product.Description" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Product.ISBN" class="form-label"></label>
+                    <input asp-for="Product.ISBN" class="form-control" placeholder="Enter ISBN" />
+                    <span asp-validation-for="Product.ISBN" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Product.Author" class="form-label"></label>
+                    <input asp-for="Product.Author" class="form-control" placeholder="Enter author name" />
+                    <span asp-validation-for="Product.Author" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Product.ListPrice" class="form-label"></label>
+                    <input asp-for="Product.ListPrice" class="form-control" placeholder="Enter list price" />
+                    <span asp-validation-for="Product.ListPrice" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Product.Price" class="form-label"></label>
+                    <input asp-for="Product.Price" class="form-control" placeholder="Enter price (1-50)" />
+                    <span asp-validation-for="Product.Price" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Product.Price50" class="form-label"></label>
+                    <input asp-for="Product.Price50" class="form-control" placeholder="Enter price (51-100)" />
+                    <span asp-validation-for="Product.Price50" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Product.Price100" class="form-label"></label>
+                    <input asp-for="Product.Price100" class="form-control" placeholder="Enter price (100+)" />
+                    <span asp-validation-for="Product.Price100" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Product.CategoryId" class="form-label"></label>
+                    <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select">
+                        <option value="">-- Select Category --</option>
+                    </select>
+                    <span asp-validation-for="Product.CategoryId" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Product.ImgURL" class="form-label">Product Image</label>
+                    <input asp-for="Product.ImgURL" type="file" name="file" class="form-control" onchange="previewImage(event)" />
+                    <span asp-validation-for="Product.ImgURL" class="text-danger small"></span>
+                </div>
+
+                <!-- Image Preview -->
+                <div class="row justify-content-center mb-3">
+                    <div class="col-10">
+                        <img id="previewImg" src="@(string.IsNullOrEmpty(Model.Product.ImgURL)
+                      ? Url.Content("~/images/no-image.png")
+                      : Url.Content("~/" + Model.Product.ImgURL.Replace("\\", "/")))"
+                             class="img-fluid border rounded  w-100"
+                             style="height:300px; object-fit:contain;" />
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-semibold">
+                        <i class="bi bi-arrow-left me-1"></i> Back to List
+                    </a>
+
+                    @if (Model.Product.Id == 0)
+                    {
+                        <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 fw-semibold">
+                            <i class="bi bi-check-circle me-1"></i> Create
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 fw-semibold">
+                            <i class="bi bi-check-circle me-1"></i> Update
+                        </button>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: [
+                'anchor', 'autolink', 'charmap', 'codesample', 'emoticons',
+                'image', 'link', 'lists', 'media', 'searchreplace',
+                'table', 'visualblocks', 'wordcount'
+            ],
+            toolbar: 'undo redo | blocks fontfamily fontsize | ' +
+                     'bold italic underline strikethrough | link image media table | ' +
+                     'align lineheight | numlist bullist indent outdent | ' +
+                     'emoticons charmap | removeformat',
+            branding: false,            // لإزالة شعار TinyMCE أسفل المحرر
+            menubar: false,             // لإخفاء شريط القوائم العلوي (File, Edit, View...)
+            height: 400                 // يمكنك تحديد ارتفاع المحرر حسب الحاجة
+        });
+    </script>
+
+    <script>
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                const output = document.getElementById('previewImg');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+
+
+    <partial name="_ValidationScriptsPartial" />
+}

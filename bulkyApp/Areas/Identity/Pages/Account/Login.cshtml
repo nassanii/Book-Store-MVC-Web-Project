@@ -1,0 +1,149 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<style>
+    /* Smooth fade-in animation for the card */
+    .fade-in-card {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.7s forwards ease-in-out;
+    }
+
+    @@keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Staggered fade-in for form controls */
+    .fade-input {
+        opacity: 0;
+        transform: translateY(10px);
+        animation: fadeInInput 0.5s forwards ease-in-out;
+    }
+
+        .fade-input:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .fade-input:nth-child(2) {
+            animation-delay: 0.35s;
+        }
+
+        .fade-input:nth-child(3) {
+            animation-delay: 0.5s;
+        }
+
+    @@keyframes fadeInInput {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Card hover effect */
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* Input focus effect */
+    .form-control:focus {
+        box-shadow: 0 0 12px rgba(13, 110, 253, 0.5);
+        border-color: #0d6efd;
+    }
+
+    /* Modern black gradient button */
+    .btn-modern {
+        background: linear-gradient(90deg, #000000, #434343);
+        border: none;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        padding: 0.75rem;
+        color: white;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease-in-out;
+    }
+
+        .btn-modern:hover {
+            background: linear-gradient(90deg, #111111, #555555);
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5);
+        }
+
+    /* Title style */
+    .form-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        text-align: center;
+        color: #333;
+    }
+</style>
+
+<div class="container py-5 big-container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-lg border-0 rounded-4 fade-in-card p-2">
+                <div class="card-body p-4">
+                    <!-- Page Title -->
+                    <div class="form-title">@ViewData["Title"]</div>
+
+                    <form id="account" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+
+                        <div class="form-floating mb-3 fade-input">
+                            <input asp-for="Input.Email" class="form-control" autocomplete="username" placeholder="name@example.com" />
+                            <label asp-for="Input.Email">Email</label>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating mb-3 fade-input">
+                            <input asp-for="Input.Password" type="password" class="form-control" autocomplete="current-password" placeholder="Password" />
+                            <label asp-for="Input.Password">Password</label>
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-check mb-3 fade-input">
+                            <input class="form-check-input" asp-for="Input.RememberMe" />
+                            <label class="form-check-label" asp-for="Input.RememberMe"></label>
+                        </div>
+
+                        <button id="login-submit" type="submit" class="btn btn-modern w-100 mb-3">Log in</button>
+
+                        <div class="text-center text-muted">
+                            <p><a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a></p>
+                            <p>Don't have an account? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register here</a></p>
+                            <p><a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a></p>
+                        </div>
+                    </form>
+                </div>
+
+                @if ((Model.ExternalLogins?.Count ?? 0) > 0)
+                {
+                    <div class="card-footer text-center py-4">
+                        <h6 class="text-muted mb-3">Or log in using:</h6>
+                        @foreach (var provider in Model.ExternalLogins!)
+                        {
+                            <form asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-outline-primary mx-1" name="provider" value="@provider.Name">
+                                    @provider.DisplayName
+                                </button>
+                            </form>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

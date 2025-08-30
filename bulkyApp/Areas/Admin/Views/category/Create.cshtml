@@ -1,0 +1,55 @@
+﻿@model Bulky.Models.Category  // <-- This connects your form model to the controller. Required for binding form input to the C# model
+
+
+
+<div class="container-fluid mt-5 px-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h3 class="mb-4 text-center fw-bold">
+                <i class="bi bi-plus-circle me-2 text-primary"></i>
+                Create New Category
+            </h3>
+
+           
+            <!-- Start of the form: Connects to the Controller's Create POST action -->
+            <form asp-action="Create" method="post" class="shadow p-4 rounded bg-white border">
+
+                 <div asp-validation-summary="ModelOnly" ></div>
+                <!-- Bind to the C# Model property: Name -->
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" placeholder="Enter category name" />
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+
+                <!-- Bind to the C# Model property: DisplayOrder -->
+                <div class="mb-4">
+                    <label asp-for="DisplayOrder" class="form-label"></label>
+                    <input asp-for="DisplayOrder" class="form-control" placeholder="Enter display order" />
+                    <span asp-validation-for="DisplayOrder" class="text-danger small"></span>
+                </div>
+
+                <!-- Buttons (One goes back to Index action, one triggers form submission to POST Create) -->
+                <div class="d-flex justify-content-between">
+
+                    <!-- Go back to Index action of same controller -->
+                    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-semibold">
+                        <i class="bi bi-arrow-left me-1"></i> Back to List
+                    </a>
+
+                    <!-- Submit the form to POST /category/Create -->
+                    <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 fw-semibold">
+                        <i class="bi bi-check-circle me-1"></i> Create
+                    </button>
+                </div>
+            </form>
+            <!-- End of form -->
+        </div>
+    </div>
+</div>
+
+<!-- Enable client-side validation -->
+
+                        @section Scripts {
+    <partial name="_ValidationScriptsPartial" />_
+}

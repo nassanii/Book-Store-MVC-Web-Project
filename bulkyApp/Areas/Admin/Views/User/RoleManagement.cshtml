@@ -1,0 +1,83 @@
+﻿@model Bulky.Models.ViewModels.RoleManagementVM
+
+<div class="container-fluid mt-5 px-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h3 class="mb-4 text-center fw-bold">
+                <i class="bi bi-shield-lock me-2 text-primary"></i>
+                Manage User Role & Company
+            </h3>
+
+            <!-- Form posts back to RoleManagement action -->
+            <form asp-action="RoleManagement" method="post" class="shadow p-4 rounded bg-white border">
+                <!-- Hidden UserId so you know which user you are updating -->
+                <input type="hidden" asp-for="applicationUser.Id" />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <!-- User Info (read-only) -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">User Name</label>
+                    <input class="form-control" value="@Model.applicationUser.Name" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Email</label>
+                    <input class="form-control" value="@Model.applicationUser.Email" readonly />
+                </div>
+
+                <!-- Company Dropdown -->
+                <div class="mb-3" id="companyDiv" style="display:@(Model.applicationUser.Role == "Company" ? "block" : "none")">
+                    <label asp-for="applicationUser.CompanyId" class="form-label fw-semibold">Company</label>
+                    <select asp-for="applicationUser.CompanyId" asp-items="Model.CompanyList" class="form-select">
+                        <option value="" >-- Select Company --</option>
+                    </select>
+                    <span asp-validation-for="applicationUser.CompanyId" class="text-danger small"></span>
+                </div>
+
+                <!-- Dropdown for Role -->
+                <div class="mb-4">
+                    <label asp-for="applicationUser.Role" class="form-label fw-semibold">Role</label>
+                    <select asp-for="applicationUser.Role" asp-items="Model.RoleList" class="form-select" id="roleDropdown">
+                        <option value="">-- Select Role --</option>
+                    </select>
+                    <span asp-validation-for="applicationUser.Role" class="text-danger small"></span>
+                </div>
+
+                <!-- Buttons -->
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-semibold">
+                        <i class="bi bi-arrow-left me-1"></i> Back to List
+                    </a>
+
+                    <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 fw-semibold">
+                        <i class="bi bi-check-circle me-1"></i> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            function toggleCompanyDropdown() {
+                var selectedRole = $('#roleDropdown').val();
+                if (selectedRole && selectedRole.toLowerCase() === 'company') {
+                    $('#companyDiv').slideDown();
+                } else {
+                    $('#companyDiv').slideUp();
+                    $('#companyDiv select').val(''); // reset company select
+                }
+            }
+
+            // Run on page load
+            toggleCompanyDropdown();
+
+            // Run when role changes
+            $('#roleDropdown').on('change', toggleCompanyDropdown);
+        });
+    </script>
+}

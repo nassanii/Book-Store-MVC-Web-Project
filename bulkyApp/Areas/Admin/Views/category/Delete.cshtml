@@ -1,0 +1,43 @@
+﻿@model Bulky.Models.Category
+
+<div class="container-fluid mt-5 px-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h3 class="mb-4 text-center fw-bold text-danger">
+                <i class="bi bi-trash me-2"></i>
+                Delete Category
+            </h3>
+
+            <form asp-action="Delete" method="post" class="shadow p-4 rounded bg-white border">
+
+                <input type="hidden" asp-for="Id" />
+
+                <h5>Category Details</h5>
+                <dl class="row mb-4">
+                    <dt class="col-sm-4">ID:</dt>
+                    <dd class="col-sm-8">@Model.Id</dd>
+
+                    <dt class="col-sm-4">Name:</dt>
+                    <dd class="col-sm-8">@Model.Name</dd>
+
+                    <dt class="col-sm-4">Display Order:</dt>
+                    <dd class="col-sm-8">@Model.DisplayOrder</dd>
+                </dl>
+
+                <p class="fs-5 text-center">
+                    Are you sure you want to delete this category?
+                </p>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a asp-action="Index" class="btn btn-outline-secondary btn-sm rounded-pill px-5 py-3 fw-semibold">
+                        <i class="bi bi-arrow-left me-1"></i> Cancel
+                    </a>
+
+                    <button type="submit" class="btn btn-danger btn-sm rounded-pill px-5 py-3 fw-semibold">
+                        <i class="bi bi-trash me-1"></i> Delete
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

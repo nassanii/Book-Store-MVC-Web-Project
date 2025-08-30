@@ -1,0 +1,49 @@
+﻿@model List<Bulky.Models.Category>
+
+<div class="container-fluid mt-5 px-5">
+    <div class="card shadow-lg rounded-4 border-0">
+        <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold text-primary mb-0">📂 Category List</h2>
+                <a class="btn btn-outline-primary rounded-pill  px-4" asp-controller="Category" asp-action="Create">
+                    <i class="bi bi-plus-circle me-2"></i> Add Category
+                </a>
+            </div>
+
+            <div class="table-responsive" style="max-height: 750px; overflow-y: auto;">
+                <table class="table table-hover align-middle text-center">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="text-secondary">📘 Category Name</th>
+                            <th class="text-secondary">🔢 Display Order</th>
+                            <th class="text-secondary">⚙️ Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="fw-semibold">@item.Name</td>
+                                <td>@item.DisplayOrder</td>
+
+                                <td class=" flex-column gap-5  px-3">
+                                    <a asp-controller="Category" asp-action="Edit" asp-route-id="@item.Id"
+                                       class="btn btn-sm btn-dark rounded-pill shadow-sm text-white w-auto"
+                                       title="Edit Category">
+                                        <i class="bi bi-pencil-square"></i> Edit
+                                    </a>
+                                    <a asp-controller="Category" asp-action="Delete" asp-route-id="@item.Id"
+                                       class="btn btn-sm btn-danger rounded-pill shadow-sm w-auto"
+                                       title="Delete Category">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </a>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
