@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\abdur\\source\\repos\\bulkyApp\\BookStore.csproj": {}
+    "C:\\Users\\abdur\\projects\\BookStore\\bulkyApp\\BookStore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\abdur\\source\\repos\\Bulky,Utility\\Bulky.Utility.csproj": {
+    "C:\\Users\\abdur\\projects\\BookStore\\Bulky,Utility\\Bulky.Utility.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\abdur\\source\\repos\\Bulky,Utility\\Bulky.Utility.csproj",
+        "projectUniqueName": "C:\\Users\\abdur\\projects\\BookStore\\Bulky,Utility\\Bulky.Utility.csproj",
         "projectName": "Bulky.Utility",
-        "projectPath": "C:\\Users\\abdur\\source\\repos\\Bulky,Utility\\Bulky.Utility.csproj",
+        "projectPath": "C:\\Users\\abdur\\projects\\BookStore\\Bulky,Utility\\Bulky.Utility.csproj",
         "packagesPath": "C:\\Users\\abdur\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\abdur\\source\\repos\\Bulky,Utility\\obj\\",
+        "outputPath": "C:\\Users\\abdur\\projects\\BookStore\\Bulky,Utility\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -79,14 +79,14 @@
         }
       }
     },
-    "C:\\Users\\abdur\\source\\repos\\Bulky.DataAccess\\Bulky.DataAccess.csproj": {
+    "C:\\Users\\abdur\\projects\\BookStore\\Bulky.DataAccess\\Bulky.DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\abdur\\source\\repos\\Bulky.DataAccess\\Bulky.DataAccess.csproj",
+        "projectUniqueName": "C:\\Users\\abdur\\projects\\BookStore\\Bulky.DataAccess\\Bulky.DataAccess.csproj",
         "projectName": "Bulky.DataAccess",
-        "projectPath": "C:\\Users\\abdur\\source\\repos\\Bulky.DataAccess\\Bulky.DataAccess.csproj",
+        "projectPath": "C:\\Users\\abdur\\projects\\BookStore\\Bulky.DataAccess\\Bulky.DataAccess.csproj",
         "packagesPath": "C:\\Users\\abdur\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\abdur\\source\\repos\\Bulky.DataAccess\\obj\\",
+        "outputPath": "C:\\Users\\abdur\\projects\\BookStore\\Bulky.DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -107,11 +107,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\abdur\\source\\repos\\Bulky,Utility\\Bulky.Utility.csproj": {
-                "projectPath": "C:\\Users\\abdur\\source\\repos\\Bulky,Utility\\Bulky.Utility.csproj"
+              "C:\\Users\\abdur\\projects\\BookStore\\Bulky,Utility\\Bulky.Utility.csproj": {
+                "projectPath": "C:\\Users\\abdur\\projects\\BookStore\\Bulky,Utility\\Bulky.Utility.csproj"
               },
-              "C:\\Users\\abdur\\source\\repos\\Bulky.Models\\Bulky.Models.csproj": {
-                "projectPath": "C:\\Users\\abdur\\source\\repos\\Bulky.Models\\Bulky.Models.csproj"
+              "C:\\Users\\abdur\\projects\\BookStore\\Bulky.Models\\Bulky.Models.csproj": {
+                "projectPath": "C:\\Users\\abdur\\projects\\BookStore\\Bulky.Models\\Bulky.Models.csproj"
               }
             }
           }
@@ -171,14 +171,14 @@
         }
       }
     },
-    "C:\\Users\\abdur\\source\\repos\\Bulky.Models\\Bulky.Models.csproj": {
+    "C:\\Users\\abdur\\projects\\BookStore\\Bulky.Models\\Bulky.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\abdur\\source\\repos\\Bulky.Models\\Bulky.Models.csproj",
+        "projectUniqueName": "C:\\Users\\abdur\\projects\\BookStore\\Bulky.Models\\Bulky.Models.csproj",
         "projectName": "Bulky.Models",
-        "projectPath": "C:\\Users\\abdur\\source\\repos\\Bulky.Models\\Bulky.Models.csproj",
+        "projectPath": "C:\\Users\\abdur\\projects\\BookStore\\Bulky.Models\\Bulky.Models.csproj",
         "packagesPath": "C:\\Users\\abdur\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\abdur\\source\\repos\\Bulky.Models\\obj\\",
+        "outputPath": "C:\\Users\\abdur\\projects\\BookStore\\Bulky.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -239,14 +239,14 @@
         }
       }
     },
-    "C:\\Users\\abdur\\source\\repos\\bulkyApp\\BookStore.csproj": {
+    "C:\\Users\\abdur\\projects\\BookStore\\bulkyApp\\BookStore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\abdur\\source\\repos\\bulkyApp\\BookStore.csproj",
+        "projectUniqueName": "C:\\Users\\abdur\\projects\\BookStore\\bulkyApp\\BookStore.csproj",
         "projectName": "BookStore",
-        "projectPath": "C:\\Users\\abdur\\source\\repos\\bulkyApp\\BookStore.csproj",
+        "projectPath": "C:\\Users\\abdur\\projects\\BookStore\\bulkyApp\\BookStore.csproj",
         "packagesPath": "C:\\Users\\abdur\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\abdur\\source\\repos\\bulkyApp\\obj\\",
+        "outputPath": "C:\\Users\\abdur\\projects\\BookStore\\bulkyApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -267,8 +267,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\abdur\\source\\repos\\Bulky.DataAccess\\Bulky.DataAccess.csproj": {
-                "projectPath": "C:\\Users\\abdur\\source\\repos\\Bulky.DataAccess\\Bulky.DataAccess.csproj"
+              "C:\\Users\\abdur\\projects\\BookStore\\Bulky.DataAccess\\Bulky.DataAccess.csproj": {
+                "projectPath": "C:\\Users\\abdur\\projects\\BookStore\\Bulky.DataAccess\\Bulky.DataAccess.csproj"
               }
             }
           }
